@@ -7,4 +7,8 @@ class RobotController
   def place(position)
     @robot.place(position) if @table.within_bounds?(position.point)
   end
+
+  def left
+    @robot.left
+  end
 end
