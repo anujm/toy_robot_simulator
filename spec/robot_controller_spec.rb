@@ -8,17 +8,29 @@ require 'direction'
 
 describe RobotController do
   describe '#place' do
-    it 'places robot on the table' do
-      table = Table.new(5, 5)
-      robot = Robot.new
-      point = Point.new(1, 2)
-      direction = Direction::NORTH
-      position = Position.new(point, direction)
+    let(:table) { Table.new(5, 5) }
+    let(:robot) { Robot.new }
 
-      expect(robot).to receive(:place).with(position)
+    context 'position is within table bounds' do
+      it 'places robot on table' do
+        position = Position.new(Point.new(1, 2), Direction::NORTH)
 
-      controller = RobotController.new(table, robot)
-      controller.place(position)
+        expect(robot).to receive(:place).with(position)
+
+        controller = RobotController.new(table, robot)
+        controller.place(position)
+      end
+    end
+
+    context 'position is outside table bounds' do
+      it 'does not place robot on table' do
+        position = Position.new(Point.new(-1, 2), Direction::NORTH)
+
+        expect(robot).not_to receive(:place).with(position)
+
+        controller = RobotController.new(table, robot)
+        controller.place(position)
+      end
     end
   end
 end
