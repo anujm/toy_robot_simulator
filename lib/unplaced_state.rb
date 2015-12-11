@@ -19,6 +19,6 @@ class UnplacedState < State
 
   def place(position)
     context.position = position
-    context.state = DIRECTION_TO_STATE_MAP[position.direction].send(:new, self)
+    context.state = DIRECTION_TO_STATE_MAP[position.direction].send(:new, context)
   end
 end
