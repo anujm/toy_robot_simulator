@@ -2,13 +2,17 @@ class RobotController
   def initialize(table, robot)
     @table = table
     @robot = robot
+    @placed = false
   end
 
   def place(position)
-    @robot.place(position) if @table.within_bounds?(position.point)
+    if @table.within_bounds?(position.point)
+      @robot.place(position)
+      @placed = true
+    end
   end
 
   def left
-    @robot.left
+    @robot.left if @placed
   end
 end
