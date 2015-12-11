@@ -19,4 +19,8 @@ class Robot
   def right
     @state.right
   end
+
+  def move
+    @state.move
+  end
 end

@@ -140,4 +140,66 @@ describe Robot do
       end
     end
   end
+
+  describe '#move' do
+    context 'when facing north' do
+      it 'moves one unit to the north' do
+        point = Point.new(1, 2)
+        direction = Direction::NORTH
+
+        robot = Robot.new
+        robot.place(Position.new(point, direction))
+        robot.move
+
+        expect(robot.position.point.x).to eq(point.x)
+        expect(robot.position.point.y).to eq(point.y + 1)
+        expect(robot.position.direction).to eq(Direction::NORTH)
+      end
+    end
+
+    context 'when facing east' do
+      it 'moves one unit to the east' do
+        point = Point.new(1, 2)
+        direction = Direction::EAST
+
+        robot = Robot.new
+        robot.place(Position.new(point, direction))
+        robot.move
+
+        expect(robot.position.point.x).to eq(point.x + 1)
+        expect(robot.position.point.y).to eq(point.y)
+        expect(robot.position.direction).to eq(Direction::EAST)
+      end
+    end
+
+    context 'when facing south' do
+      it 'moves robot one unit to the south' do
+        point = Point.new(1, 2)
+        direction = Direction::SOUTH
+
+        robot = Robot.new
+        robot.place(Position.new(point, direction))
+        robot.move
+
+        expect(robot.position.point.x).to eq(point.x)
+        expect(robot.position.point.y).to eq(point.y - 1)
+        expect(robot.position.direction).to eq(Direction::SOUTH)
+      end
+    end
+
+    context 'when facing west' do
+      it 'changes robot direction to north' do
+        point = Point.new(1, 2)
+        direction = Direction::WEST
+
+        robot = Robot.new
+        robot.place(Position.new(point, direction))
+        robot.move
+
+        expect(robot.position.point.x).to eq(point.x - 1)
+        expect(robot.position.point.y).to eq(point.y)
+        expect(robot.position.direction).to eq(Direction::WEST)
+      end
+    end
+  end
 end

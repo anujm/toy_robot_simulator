@@ -14,4 +14,9 @@ class EastState < State
     context.position = Position.new(context.position.point, Direction::SOUTH)
     context.state = SouthState.new(context)
   end
+
+  def move
+    destination_point = Point.new(context.position.point.x + 1, context.position.point.y)
+    context.position.point = destination_point
+  end
 end

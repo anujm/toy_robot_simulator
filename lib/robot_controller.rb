@@ -19,4 +19,8 @@ class RobotController
   def right
     @robot.right if @placed
   end
+
+  def move
+    @robot.move if @placed
+  end
 end

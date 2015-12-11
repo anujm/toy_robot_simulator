@@ -87,4 +87,31 @@ describe RobotController do
       end
     end
   end
+
+  describe '#move' do
+    let(:table) { Table.new(5, 5) }
+    let(:robot) { Robot.new }
+
+    context 'when robot has not been placed on table yet' do
+      it 'does not move robot' do
+        expect(robot).not_to receive(:move)
+
+        controller = RobotController.new(table, robot)
+        controller.move
+      end
+    end
+
+    context 'when robot has been placed on table' do
+      it 'moves robot' do
+        position = Position.new(Point.new(1, 2), Direction::NORTH)
+
+        expect(robot).to receive(:place).with(position)
+        expect(robot).to receive(:move)
+
+        controller = RobotController.new(table, robot)
+        controller.place(position)
+        controller.move
+      end
+    end
+  end
 end
