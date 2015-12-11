@@ -8,7 +8,8 @@ class Robot
   end
 
   def place(position)
-    @position = position
+    @state = UnplacedState.new(self)
+    @state.place(position)
   end
 
   def left

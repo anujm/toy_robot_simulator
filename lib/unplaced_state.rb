@@ -1,4 +1,5 @@
 require 'state'
+require 'direction'
 require 'north_state'
 require 'east_state'
 require 'south_state'
