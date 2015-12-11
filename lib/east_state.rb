@@ -9,4 +9,9 @@ class EastState < State
     context.position = Position.new(context.position.point, Direction::NORTH)
     context.state = NorthState.new(context)
   end
+
+  def right
+    context.position = Position.new(context.position.point, Direction::SOUTH)
+    context.state = SouthState.new(context)
+  end
 end

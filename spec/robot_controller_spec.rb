@@ -60,4 +60,31 @@ describe RobotController do
       end
     end
   end
+
+  describe '#right' do
+    let(:table) { Table.new(5, 5) }
+    let(:robot) { Robot.new }
+
+    context 'when robot has not been placed on table yet' do
+      it 'does not rotate robot to the right' do
+        expect(robot).not_to receive(:right)
+
+        controller = RobotController.new(table, robot)
+        controller.right
+      end
+    end
+
+    context 'when robot has been placed on table' do
+      it 'rotates robot to the right' do
+        position = Position.new(Point.new(1, 2), Direction::NORTH)
+
+        expect(robot).to receive(:place).with(position)
+        expect(robot).to receive(:right)
+
+        controller = RobotController.new(table, robot)
+        controller.place(position)
+        controller.right
+      end
+    end
+  end
 end
