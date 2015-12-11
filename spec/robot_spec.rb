@@ -5,6 +5,13 @@ require 'direction'
 require 'position'
 
 describe Robot do
+  describe 'initialize' do
+    it 'creates robot in the Unplaced State' do
+      robot = Robot.new
+      expect(robot.state).to be_a(UnplacedState)
+    end
+  end
+
   describe '#place' do
     it 'changes robot position to specified position' do
       point = Point.new(1, 2)

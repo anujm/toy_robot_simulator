@@ -1,5 +1,12 @@
+require 'unplaced_state'
+
 class Robot
   attr_reader :position
+  attr_accessor :state
+
+  def initialize
+    @state = UnplacedState.new
+  end
 
   def place(position)
     @position = position
