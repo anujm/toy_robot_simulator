@@ -263,7 +263,7 @@ describe Robot do
 
   describe '#report' do
     context 'not placed on table yet' do
-      it 'does not returns robot position' do
+      it 'does not return robot position' do
         robot = Robot.new
         expect(robot.report).to be_nil
       end

@@ -1,0 +1,2 @@
+class ReportCommand
+end
