@@ -5,9 +5,7 @@ class RobotController
   end
 
   def place(position)
-    if @table.within_bounds?(position.point)
-      @robot.place(position)
-    end
+    @robot.place(position) if placement_possible?(position)
   end
 
   def left
@@ -23,6 +21,10 @@ class RobotController
   end
 
   private
+
+  def placement_possible?(position)
+    @table.within_bounds?(position.point)
+  end
 
   def movement_possible?
     !unplaced? && !@table.at_edge?(@robot.position)
