@@ -7,4 +7,8 @@ class PlaceCommand
   def initialize(x, y, direction)
     @position = Position.new(Point.new(x, y), direction)
   end
+
+  def execute(robot_controller)
+    robot_controller.place(@position)
+  end
 end
