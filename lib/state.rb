@@ -6,6 +6,6 @@ class State
   end
 
   def report
-    @context.position
+    "#{@context.position}"
   end
 end

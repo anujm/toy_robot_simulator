@@ -279,7 +279,7 @@ describe Robot do
         robot.place(position)
         robot.move
 
-        expect(robot.report).to eq(position)
+        expect(robot.report).to eq('1,3,NORTH')
       end
     end
 
@@ -293,7 +293,7 @@ describe Robot do
         robot.place(position)
         robot.move
 
-        expect(robot.report).to eq(position)
+        expect(robot.report).to eq('1,1,SOUTH')
       end
     end
 
@@ -307,7 +307,7 @@ describe Robot do
         robot.place(position)
         robot.move
 
-        expect(robot.report).to eq(position)
+        expect(robot.report).to eq('2,2,EAST')
       end
     end
 
@@ -321,7 +321,7 @@ describe Robot do
         robot.place(position)
         robot.move
 
-        expect(robot.report).to eq(position)
+        expect(robot.report).to eq('0,2,WEST')
       end
     end
   end
