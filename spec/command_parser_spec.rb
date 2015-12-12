@@ -28,5 +28,9 @@ describe CommandParser do
         expect(place_command.position.direction).to eq(Direction::SOUTH)
       end
     end
+
+    it 'should return LEFT command if input is LEFT' do
+      expect(CommandParser.parse('LEFT')).to be_an(LeftCommand)
+    end
   end
 end
