@@ -5,14 +5,14 @@ require 'direction'
 require 'position'
 
 describe Robot do
-  describe 'initialize' do
+  describe '#initialize' do
     it 'creates robot in the Unplaced State' do
       robot = Robot.new
       expect(robot.state).to be_a(UnplacedState)
     end
   end
 
-  describe 'place' do
+  describe '#place' do
     context 'when placed in north direction' do
       it 'should change state to north state' do
         position = Position.new(Point.new(1, 2), Direction::NORTH)
@@ -257,6 +257,71 @@ describe Robot do
         expect(robot.position.point.x).to eq(point.x - 1)
         expect(robot.position.point.y).to eq(point.y)
         expect(robot.position.direction).to eq(Direction::WEST)
+      end
+    end
+  end
+
+  describe '#report' do
+    context 'not placed on table yet' do
+      it 'does not returns robot position' do
+        robot = Robot.new
+        expect(robot.report).to be_nil
+      end
+    end
+
+    context 'when facing north' do
+      it 'returns robot position' do
+        robot = Robot.new
+        point = Point.new(1, 2)
+        direction = Direction::NORTH
+        position = Position.new(point, direction)
+
+        robot.place(position)
+        robot.move
+
+        expect(robot.report).to eq(position)
+      end
+    end
+
+    context 'when facing south' do
+      it 'returns robot position' do
+        robot = Robot.new
+        point = Point.new(1, 2)
+        direction = Direction::SOUTH
+        position = Position.new(point, direction)
+
+        robot.place(position)
+        robot.move
+
+        expect(robot.report).to eq(position)
+      end
+    end
+
+    context 'when facing east' do
+      it 'returns robot position' do
+        robot = Robot.new
+        point = Point.new(1, 2)
+        direction = Direction::EAST
+        position = Position.new(point, direction)
+
+        robot.place(position)
+        robot.move
+
+        expect(robot.report).to eq(position)
+      end
+    end
+
+    context 'when facing west' do
+      it 'returns robot position' do
+        robot = Robot.new
+        point = Point.new(1, 2)
+        direction = Direction::WEST
+        position = Position.new(point, direction)
+
+        robot.place(position)
+        robot.move
+
+        expect(robot.report).to eq(position)
       end
     end
   end

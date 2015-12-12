@@ -30,4 +30,7 @@ class UnplacedState < State
 
   def move
   end
+
+  def report
+  end
 end

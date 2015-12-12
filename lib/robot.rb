@@ -23,4 +23,8 @@ class Robot
   def move
     @state.move
   end
+
+  def report
+    @state.report
+  end
 end

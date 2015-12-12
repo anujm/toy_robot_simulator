@@ -20,6 +20,10 @@ class RobotController
     @robot.move if movement_possible?
   end
 
+  def report
+    @robot.report
+  end
+
   private
 
   def placement_possible?(position)

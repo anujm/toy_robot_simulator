@@ -4,4 +4,8 @@ class State
   def initialize(context)
     @context = context
   end
+
+  def report
+    @context.position
+  end
 end

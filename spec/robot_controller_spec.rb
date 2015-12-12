@@ -84,5 +84,17 @@ describe RobotController do
         controller.move
       end
     end
+
+    describe '#report' do
+      it 'reports robot position' do
+        position = Position.new(Point.new(1, 2), Direction::NORTH)
+
+        expect(robot).to receive(:report)
+
+        controller = RobotController.new(table, robot)
+        controller.place(position)
+        controller.report
+      end
+    end
   end
 end
