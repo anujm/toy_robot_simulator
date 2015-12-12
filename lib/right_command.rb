@@ -1,0 +1,2 @@
+class RightCommand
+end

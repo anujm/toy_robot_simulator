@@ -32,5 +32,9 @@ describe CommandParser do
     it 'should return LEFT command if input is LEFT' do
       expect(CommandParser.parse('LEFT')).to be_an(LeftCommand)
     end
+
+    it 'should return RIGHT command if input is RIGHT' do
+      expect(CommandParser.parse('RIGHT')).to be_an(RightCommand)
+    end
   end
 end
