@@ -21,6 +21,16 @@ class RobotController
   end
 
   def move
-    @robot.move if @placed
+    @robot.move if @placed && movement_possible?
+  end
+
+  private
+
+  def movement_possible?
+    !unplaced? && !@table.at_edge?(@robot.position)
+  end
+
+  def unplaced?
+    @robot.state.is_a?(UnplacedState)
   end
 end

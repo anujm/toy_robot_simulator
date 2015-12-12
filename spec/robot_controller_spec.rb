@@ -51,7 +51,6 @@ describe RobotController do
       it 'rotates robot to the left' do
         position = Position.new(Point.new(1, 2), Direction::NORTH)
 
-        expect(robot).to receive(:place).with(position)
         expect(robot).to receive(:left)
 
         controller = RobotController.new(table, robot)
@@ -65,7 +64,7 @@ describe RobotController do
     let(:table) { Table.new(5, 5) }
     let(:robot) { Robot.new }
 
-    context 'when robot has not been placed on table yet' do
+    context 'robot has not been placed on table yet' do
       it 'does not rotate robot to the right' do
         expect(robot).not_to receive(:right)
 
@@ -74,11 +73,10 @@ describe RobotController do
       end
     end
 
-    context 'when robot has been placed on table' do
+    context 'robot has been placed on table' do
       it 'rotates robot to the right' do
         position = Position.new(Point.new(1, 2), Direction::NORTH)
 
-        expect(robot).to receive(:place).with(position)
         expect(robot).to receive(:right)
 
         controller = RobotController.new(table, robot)
@@ -92,7 +90,7 @@ describe RobotController do
     let(:table) { Table.new(5, 5) }
     let(:robot) { Robot.new }
 
-    context 'when robot has not been placed on table yet' do
+    context 'robot has not been placed on table yet' do
       it 'does not move robot' do
         expect(robot).not_to receive(:move)
 
@@ -101,16 +99,31 @@ describe RobotController do
       end
     end
 
-    context 'when robot has been placed on table' do
-      it 'moves robot' do
-        position = Position.new(Point.new(1, 2), Direction::NORTH)
+    context 'robot has been placed on table' do
+      context 'robot is not at the edge of the table' do
+        it 'moves robot' do
+          position = Position.new(Point.new(1, 2), Direction::NORTH)
 
-        expect(robot).to receive(:place).with(position)
-        expect(robot).to receive(:move)
+          expect(table).to receive(:at_edge?).with(position).and_return(false)
+          expect(robot).to receive(:move)
 
-        controller = RobotController.new(table, robot)
-        controller.place(position)
-        controller.move
+          controller = RobotController.new(table, robot)
+          controller.place(position)
+          controller.move
+        end
+      end
+
+      context 'robot is at the edge of the table' do
+        it 'does not move robot' do
+          position = Position.new(Point.new(1, 4), Direction::NORTH)
+
+          expect(table).to receive(:at_edge?).with(position).and_return(true)
+          expect(robot).not_to receive(:move)
+
+          controller = RobotController.new(table, robot)
+          controller.place(position)
+          controller.move
+        end
       end
     end
   end
