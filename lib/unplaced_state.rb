@@ -21,4 +21,13 @@ class UnplacedState < State
     context.position = position
     context.state = DIRECTION_TO_STATE_MAP[position.direction].send(:new, context)
   end
+
+  def left
+  end
+
+  def right
+  end
+
+  def move
+  end
 end

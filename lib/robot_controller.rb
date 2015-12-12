@@ -2,26 +2,24 @@ class RobotController
   def initialize(table, robot)
     @table = table
     @robot = robot
-    @placed = false
   end
 
   def place(position)
     if @table.within_bounds?(position.point)
       @robot.place(position)
-      @placed = true
     end
   end
 
   def left
-    @robot.left if @placed
+    @robot.left
   end
 
   def right
-    @robot.right if @placed
+    @robot.right
   end
 
   def move
-    @robot.move if @placed && movement_possible?
+    @robot.move if movement_possible?
   end
 
   private

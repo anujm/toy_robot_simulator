@@ -7,10 +7,10 @@ require 'point'
 require 'direction'
 
 describe RobotController do
-  describe '#place' do
-    let(:table) { Table.new(5, 5) }
-    let(:robot) { Robot.new }
+  let(:table) { Table.new(5, 5) }
+  let(:robot) { Robot.new }
 
+  describe '#place' do
     context 'position is within table bounds' do
       it 'places robot on table' do
         position = Position.new(Point.new(1, 2), Direction::NORTH)
@@ -35,95 +35,53 @@ describe RobotController do
   end
 
   describe '#left' do
-    let(:table) { Table.new(5, 5) }
-    let(:robot) { Robot.new }
+    it 'rotates robot to the left' do
+      position = Position.new(Point.new(1, 2), Direction::NORTH)
 
-    context 'when robot has not been placed on table yet' do
-      it 'does not rotate robot to the left' do
-        expect(robot).not_to receive(:left)
+      expect(robot).to receive(:left)
 
-        controller = RobotController.new(table, robot)
-        controller.left
-      end
-    end
-
-    context 'when robot has been placed on table' do
-      it 'rotates robot to the left' do
-        position = Position.new(Point.new(1, 2), Direction::NORTH)
-
-        expect(robot).to receive(:left)
-
-        controller = RobotController.new(table, robot)
-        controller.place(position)
-        controller.left
-      end
+      controller = RobotController.new(table, robot)
+      controller.place(position)
+      controller.left
     end
   end
 
   describe '#right' do
-    let(:table) { Table.new(5, 5) }
-    let(:robot) { Robot.new }
+    it 'rotates robot to the right' do
+      position = Position.new(Point.new(1, 2), Direction::NORTH)
 
-    context 'robot has not been placed on table yet' do
-      it 'does not rotate robot to the right' do
-        expect(robot).not_to receive(:right)
+      expect(robot).to receive(:right)
 
-        controller = RobotController.new(table, robot)
-        controller.right
-      end
-    end
-
-    context 'robot has been placed on table' do
-      it 'rotates robot to the right' do
-        position = Position.new(Point.new(1, 2), Direction::NORTH)
-
-        expect(robot).to receive(:right)
-
-        controller = RobotController.new(table, robot)
-        controller.place(position)
-        controller.right
-      end
+      controller = RobotController.new(table, robot)
+      controller.place(position)
+      controller.right
     end
   end
 
   describe '#move' do
-    let(:table) { Table.new(5, 5) }
-    let(:robot) { Robot.new }
+    context 'robot is not at the edge of the table' do
+      it 'moves robot' do
+        position = Position.new(Point.new(1, 2), Direction::NORTH)
 
-    context 'robot has not been placed on table yet' do
-      it 'does not move robot' do
-        expect(robot).not_to receive(:move)
+        expect(table).to receive(:at_edge?).with(position).and_return(false)
+        expect(robot).to receive(:move)
 
         controller = RobotController.new(table, robot)
+        controller.place(position)
         controller.move
       end
     end
 
-    context 'robot has been placed on table' do
-      context 'robot is not at the edge of the table' do
-        it 'moves robot' do
-          position = Position.new(Point.new(1, 2), Direction::NORTH)
+    context 'robot is at the edge of the table' do
+      it 'does not move robot' do
+        position = Position.new(Point.new(1, 4), Direction::NORTH)
 
-          expect(table).to receive(:at_edge?).with(position).and_return(false)
-          expect(robot).to receive(:move)
+        expect(table).to receive(:at_edge?).with(position).and_return(true)
+        expect(robot).not_to receive(:move)
 
-          controller = RobotController.new(table, robot)
-          controller.place(position)
-          controller.move
-        end
-      end
-
-      context 'robot is at the edge of the table' do
-        it 'does not move robot' do
-          position = Position.new(Point.new(1, 4), Direction::NORTH)
-
-          expect(table).to receive(:at_edge?).with(position).and_return(true)
-          expect(robot).not_to receive(:move)
-
-          controller = RobotController.new(table, robot)
-          controller.place(position)
-          controller.move
-        end
+        controller = RobotController.new(table, robot)
+        controller.place(position)
+        controller.move
       end
     end
   end

@@ -12,20 +12,64 @@ describe Robot do
     end
   end
 
-  describe '#place' do
-    it 'changes robot position to specified position' do
-      point = Point.new(1, 2)
-      direction = Direction::NORTH
+  describe 'place' do
+    context 'when placed in north direction' do
+      it 'should change state to north state' do
+        position = Position.new(Point.new(1, 2), Direction::NORTH)
+        robot = Robot.new
 
-      robot = Robot.new
-      robot.place(Position.new(point, direction))
+        robot.place(position)
 
-      expect(robot.position.point).to eq(point)
-      expect(robot.position.direction).to eq(direction)
+        expect(robot.state).to be_a(NorthState)
+        expect(robot.position).to eq(position)
+      end
+    end
+
+    context 'when placed in east direction' do
+      it 'should change state to east state' do
+        position = Position.new(Point.new(1, 2), Direction::EAST)
+        robot = Robot.new
+
+        robot.place(position)
+
+        expect(robot.state).to be_a(EastState)
+        expect(robot.position).to eq(position)
+      end
+    end
+
+    context 'when placed in south direction' do
+      it 'should change state to south state' do
+        position = Position.new(Point.new(1, 2), Direction::SOUTH)
+        robot = Robot.new
+
+        robot.place(position)
+
+        expect(robot.state).to be_a(SouthState)
+        expect(robot.position).to eq(position)
+      end
+    end
+
+    context 'when placed in west direction' do
+      it 'should change state to west state' do
+        position = Position.new(Point.new(1, 2), Direction::WEST)
+        robot = Robot.new
+
+        robot.place(position)
+
+        expect(robot.state).to be_a(WestState)
+        expect(robot.position).to eq(position)
+      end
     end
   end
 
   describe '#left' do
+    context 'not placed on table yet' do
+      it 'does not change position' do
+        robot = Robot.new
+        expect { robot.left }.not_to change { robot.position }
+      end
+    end
+
     context 'when facing north' do
       it 'changes robot direction to west' do
         point = Point.new(1, 2)
@@ -84,6 +128,13 @@ describe Robot do
   end
 
   describe '#right' do
+    context 'not placed on table yet' do
+      it 'does not change position' do
+        robot = Robot.new
+        expect { robot.right }.not_to change { robot.position }
+      end
+    end
+
     context 'when facing north' do
       it 'changes robot direction to east' do
         point = Point.new(1, 2)
@@ -142,6 +193,13 @@ describe Robot do
   end
 
   describe '#move' do
+    context 'not placed on table yet' do
+      it 'does not change position' do
+        robot = Robot.new
+        expect { robot.move }.not_to change { robot.position }
+      end
+    end
+
     context 'when facing north' do
       it 'moves one unit to the north' do
         point = Point.new(1, 2)
