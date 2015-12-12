@@ -40,5 +40,9 @@ describe CommandParser do
     it 'should return REPORT command if input is REPORT' do
       expect(CommandParser.parse('REPORT')).to be_an(ReportCommand)
     end
+
+    it 'should return MOVE command if input is MOVE' do
+      expect(CommandParser.parse('MOVE')).to be_an(MoveCommand)
+    end
   end
 end

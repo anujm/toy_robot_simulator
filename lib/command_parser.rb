@@ -2,6 +2,7 @@ require_relative 'place_command'
 require_relative 'left_command'
 require_relative 'right_command'
 require_relative 'report_command'
+require_relative 'move_command'
 
 class CommandParser
   # matches input starting with the string 'PLACE' followed by two comma separated digits and a direction
@@ -10,6 +11,7 @@ class CommandParser
   LEFT_COMMAND = 'LEFT'
   RIGHT_COMMAND = 'RIGHT'
   REPORT_COMMAND = 'REPORT'
+  MOVE_COMMAND = 'MOVE'
 
   def self.parse(command)
     if match = command.match(PLACE_COMMAND_REGEX)
@@ -21,6 +23,8 @@ class CommandParser
       RightCommand.new
     elsif command == REPORT_COMMAND
       ReportCommand.new
+    elsif command == MOVE_COMMAND
+      MoveCommand.new
     end
   end
 end
