@@ -4,6 +4,9 @@ require_relative 'right_command'
 require_relative 'report_command'
 require_relative 'move_command'
 
+class ParseException < Exception
+end
+
 class CommandParser
   # matches input starting with the string 'PLACE' followed by two comma separated digits and a direction
   # the whitespace matches are present to allow leniency in command input
@@ -25,6 +28,8 @@ class CommandParser
       ReportCommand.new
     elsif command == MOVE_COMMAND
       MoveCommand.new
+    else
+      raise ParseException.new(command)
     end
   end
 end

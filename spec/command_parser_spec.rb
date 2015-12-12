@@ -44,5 +44,9 @@ describe CommandParser do
     it 'should return MOVE command if input is MOVE' do
       expect(CommandParser.parse('MOVE')).to be_an(MoveCommand)
     end
+
+    it 'should raise exception if input is an invalid command' do
+      expect{ CommandParser.parse('RANDOM') }.to raise_error(ParseException)
+    end
   end
 end
